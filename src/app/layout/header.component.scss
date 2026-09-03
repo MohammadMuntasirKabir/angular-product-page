@@ -1,0 +1,363 @@
+/* ---- CSS Custom Properties ---- */
+:host {
+  --header-bg: rgba(22, 22, 23, 0.8);
+  --header-bg-solid: #161617;
+  --header-height: 44px;
+  --header-height-mobile: 48px;
+  --header-font-size: 12px;
+  --header-letter-spacing: -0.01em;
+  --header-color: rgba(255, 255, 255, 0.8);
+  --header-color-hover: #ffffff;
+  --header-blur: 20px;
+  --header-saturate: 180%;
+  --container-max-width: 1024px;
+  --header-transition-duration: 0.2s;
+  --header-transition-easing: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --header-hamburger-bar-height: 1px;
+  --header-hamburger-bar-width: 17px;
+  --breakpoint-mobile: 768px;
+}
+
+/* ---- Global Header ---- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background: var(--header-bg);
+  backdrop-filter: saturate(var(--header-saturate)) blur(var(--header-blur));
+  -webkit-backdrop-filter: saturate(var(--header-saturate)) blur(var(--header-blur));
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+
+  /* ---- Navigation container ---- */
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding-inline: 12px;
+    max-width: var(--container-max-width);
+    margin-inline: auto;
+  }
+
+  /* ---- Apple logo ---- */
+  &__logo {
+    display: flex;
+    align-items: center;
+    color: var(--header-color);
+    transition: color var(--header-transition-duration) var(--header-transition-easing);
+    padding-inline: 8px;
+    height: 100%;
+    flex-shrink: 0;
+
+    &:hover {
+      color: var(--header-color-hover);
+    }
+
+    svg {
+      width: 14px;
+      height: 18px;
+    }
+  }
+
+  /* ---- Primary menu ---- */
+  &__menu {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    transition: opacity var(--header-transition-duration) var(--header-transition-easing),
+                visibility var(--header-transition-duration) var(--header-transition-easing);
+  }
+
+  /* ---- Each nav item (top-level li) ---- */
+  &__menu-item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  /* ---- Nested list inside each nav item ---- */
+  &__menu-item-list {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  /* ---- Nested list item: link ---- */
+  &__menu-item-link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  /* ---- Nested list item: button ---- */
+  &__menu-item-btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  /* ---- The <a> link ---- */
+  &__link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-inline: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: var(--header-font-size);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--header-color);
+    text-decoration: none;
+    letter-spacing: var(--header-letter-spacing);
+    transition: color var(--header-transition-duration) var(--header-transition-easing);
+    white-space: nowrap;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &:hover {
+      color: var(--header-color-hover);
+    }
+  }
+
+  /* ---- The expand <button> ---- */
+  &__menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-inline: 4px;
+    color: var(--header-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color var(--header-transition-duration) var(--header-transition-easing);
+
+    &:hover {
+      color: var(--header-color-hover);
+    }
+  }
+
+  &__menu-btn-chevron {
+    width: 8px;
+    height: 8px;
+    opacity: 0.54;
+    transition: opacity var(--header-transition-duration) var(--header-transition-easing);
+  }
+
+  &__menu-btn:hover &__menu-btn-chevron,
+  &__menu-btn[aria-expanded="true"] &__menu-btn-chevron {
+    opacity: 1;
+  }
+
+  /* ---- Right side actions ---- */
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  &__icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: var(--header-height);
+    color: var(--header-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color var(--header-transition-duration) var(--header-transition-easing);
+
+    &:hover {
+      color: var(--header-color-hover);
+    }
+
+    svg {
+      width: 15px;
+      height: var(--header-height);
+    }
+  }
+
+  /* ---- Mobile hamburger trigger ---- */
+  &__menu-trigger {
+    display: none;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--header-color);
+    z-index: 1;
+    transition: color var(--header-transition-duration) var(--header-transition-easing);
+
+    &:hover {
+      color: var(--header-color-hover);
+    }
+  }
+
+  &__menu-bar {
+    position: absolute;
+    left: 50%;
+    width: var(--header-hamburger-bar-width);
+    height: var(--header-hamburger-bar-height);
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform var(--header-transition-duration) var(--header-transition-easing),
+                top var(--header-transition-duration) var(--header-transition-easing),
+                opacity var(--header-transition-duration) var(--header-transition-easing);
+
+    &--top {
+      top: 50%;
+      transform: translate(-50%, -50%) translateY(-3px);
+
+      &.header__menu-bar--open {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
+
+    &--bottom {
+      top: 50%;
+      transform: translate(-50%, -50%) translateY(3px);
+
+      &.header__menu-bar--open {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+    }
+  }
+}
+
+/* ---- Responsive: Mobile breakpoint ---- */
+@media (max-width: 767.98px) {
+  .header {
+    height: var(--header-height-mobile);
+    transition: background var(--header-transition-duration) var(--header-transition-easing),
+                backdrop-filter var(--header-transition-duration) var(--header-transition-easing);
+
+    &--menu-open {
+      background: var(--header-bg-solid);
+    }
+
+    &__nav {
+      justify-content: space-between;
+    }
+
+    &__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &__menu {
+      position: fixed;
+      top: var(--header-height-mobile);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: auto;
+      width: 100%;
+      background: var(--header-bg-solid);
+      padding: 4px 40px 20px;
+      gap: 0;
+      overflow-y: auto;
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity var(--header-transition-duration) var(--header-transition-easing),
+                  visibility var(--header-transition-duration) var(--header-transition-easing);
+
+      &:not([hidden]) {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+    }
+
+    &__menu-item {
+      width: 100%;
+      height: auto;
+    }
+
+    &__menu-item-list {
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__menu-item-link {
+      width: 100%;
+      height: auto;
+    }
+
+    &__menu-item-btn {
+      display: none;
+    }
+
+    &__link {
+      width: 100%;
+      height: auto;
+      padding: 12px 0;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: normal;
+      justify-content: flex-start;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: color var(--header-transition-duration) var(--header-transition-easing);
+    }
+
+    &__actions {
+      flex-direction: row;
+    }
+
+    &__icon-btn {
+      height: var(--header-height-mobile);
+
+      svg {
+        height: var(--header-height-mobile);
+      }
+    }
+
+    &__menu-trigger {
+      display: flex;
+    }
+  }
+}
+
+/* ---- Reduced motion preference ---- */
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    &__nav,
+    &__logo,
+    &__link,
+    &__menu-btn,
+    &__icon-btn,
+    &__menu-trigger,
+    &__menu {
+      transition: none;
+    }
+  }
+}

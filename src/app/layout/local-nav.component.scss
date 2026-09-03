@@ -1,0 +1,188 @@
+/* ================================================================
+   LOCAL SUB-NAVIGATION — iPhone 17 Pro
+   Sticky bar below the global header with Explore dropdown + Buy.
+   ================================================================ */
+
+/* ---- Component-scoped custom properties ---- */
+:host {
+  --local-nav-top:               44px;
+  --local-nav-height:            54px;
+  --local-nav-bg:                rgba(251, 251, 253, 0.8);
+  --local-nav-border:            rgba(0, 0, 0, 0.16);
+  --local-nav-blur:              saturate(180%) blur(20px);
+  --local-nav-font:              var(--font-family-sans);
+  --local-nav-title-size:        var(--font-size-xl);
+  --local-nav-title-weight:      var(--font-weight-semibold);
+  --local-nav-title-color:       var(--color-text-dark);
+  --local-nav-trigger-color:     var(--color-text-dark);
+  --local-nav-trigger-hover-bg:  rgba(0, 0, 0, 0.04);
+  --local-nav-trigger-font:      var(--font-size-sm);
+  --local-nav-dropdown-bg:       rgba(255, 255, 255, 0.95);
+  --local-nav-dropdown-radius:   var(--border-radius);
+  --local-nav-dropdown-shadow:   var(--shadow-md);
+  --local-nav-dropdown-link:     var(--color-text-dark);
+  --local-nav-dropdown-link-hover-bg:   rgba(0, 113, 227, 0.08);
+  --local-nav-dropdown-link-hover-color: var(--color-accent);
+  --local-nav-dropdown-duration: var(--duration-fast);
+  --local-nav-dropdown-ease:     var(--ease-out-cubic);
+  --local-nav-z:                 var(--z-sticky);
+}
+
+/* ---- Root nav bar ---- */
+.local-nav {
+  position: sticky;
+  top: var(--local-nav-top);
+  z-index: var(--local-nav-z);
+  height: var(--local-nav-height);
+  background: var(--local-nav-bg);
+  backdrop-filter: var(--local-nav-blur);
+  -webkit-backdrop-filter: var(--local-nav-blur);
+  border-bottom: 1px solid var(--local-nav-border);
+  display: flex;
+  align-items: center;
+  font-family: var(--local-nav-font);
+}
+
+/* ---- Inner layout ---- */
+.local-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* ---- Title ---- */
+.local-nav__title {
+  font-family: var(--font-family-sans-alt);
+  font-size: var(--local-nav-title-size);
+  font-weight: var(--local-nav-title-weight);
+  color: var(--local-nav-title-color);
+  letter-spacing: 0;
+  line-height: 1.2;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ---- Actions row ---- */
+.local-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* ---- Dropdown container ---- */
+.local-nav__dropdown {
+  position: relative;
+}
+
+/* ---- Dropdown trigger button ---- */
+.local-nav__dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--local-nav-trigger-font);
+  font-weight: var(--font-weight-regular);
+  color: var(--local-nav-trigger-color);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: background var(--local-nav-dropdown-duration) var(--local-nav-dropdown-ease);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:hover {
+    background: var(--local-nav-trigger-hover-bg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* ---- Chevron icon with CSS transform rotation ---- */
+.local-nav__chevron {
+  transition: transform 250ms var(--local-nav-dropdown-ease);
+  transform-origin: center center;
+  flex-shrink: 0;
+
+  &--open {
+    transform: rotate(180deg);
+  }
+}
+
+/* ---- Dropdown menu (scale + fade animation) ---- */
+.local-nav__dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  background: var(--local-nav-dropdown-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--local-nav-dropdown-radius);
+  box-shadow: var(--local-nav-dropdown-shadow);
+  padding: var(--space-1) 0;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+
+  /* Open animation: scale up + fade in */
+  animation: localNavFadeScaleIn 200ms var(--local-nav-dropdown-ease) both;
+}
+
+/* ---- Dropdown links ---- */
+.local-nav__dropdown-link {
+  display: block;
+  padding: var(--space-2) var(--space-4);
+  font-size: 13px;
+  color: var(--local-nav-dropdown-link);
+  transition: background var(--local-nav-dropdown-duration) var(--local-nav-dropdown-ease),
+              color var(--local-nav-dropdown-duration) var(--local-nav-dropdown-ease);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--local-nav-dropdown-link-hover-bg);
+    color: var(--local-nav-dropdown-link-hover-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+  }
+}
+
+/* ---- Buy button override ---- */
+.local-nav__buy {
+  font-size: 12px;
+  padding: 4px 12px;
+  min-width: 0;
+}
+
+/* ---- Dropdown open keyframes ---- */
+@keyframes localNavFadeScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .local-nav,
+  .local-nav__dropdown-trigger,
+  .local-nav__chevron,
+  .local-nav__dropdown-menu,
+  .local-nav__dropdown-link {
+    transition: none;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+}

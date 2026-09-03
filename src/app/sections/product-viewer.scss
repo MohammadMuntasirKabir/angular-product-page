@@ -1,0 +1,233 @@
+.product-viewer {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  padding: 114px 0 160px;
+  font-family: var(--font-family-sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(
+      circle,
+      rgba(41, 151, 255, 0.05) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+.viewer-content {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.viewer-heading {
+  font-size: 56px;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  line-height: 60px;
+  margin: 0 0 12px;
+  color: var(--color-text-primary);
+}
+
+.viewer-sub {
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--color-text-secondary);
+  margin: 0 0 48px;
+}
+
+/* ── Canvas wrapper ── */
+.canvas-wrapper {
+  width: 100%;
+  height: 520px;
+  max-width: 750px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 48px;
+
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
+}
+
+/* ── Phone labels ── */
+.phone-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.phone-label {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s var(--ease-out-cubic),
+    transform 0.4s var(--ease-out-cubic);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.label-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgba(41, 151, 255, 0.5);
+  flex-shrink: 0;
+}
+
+.label-text {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  background: var(--glass-dark);
+  backdrop-filter: var(--glass-blur);
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* ── Color picker ── */
+.color-picker {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.color-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-pill);
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease-in-out),
+    border-color var(--duration-base) var(--ease-in-out),
+    box-shadow var(--duration-base) var(--ease-in-out),
+    transform var(--duration-fast) var(--ease-out-cubic);
+  font-family: inherit;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.03);
+  }
+
+  &.active {
+    border-color: var(--color-accent);
+    background: rgba(41, 151, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(41, 151, 255, 0.15);
+
+    .color-label {
+      color: var(--color-accent);
+    }
+  }
+}
+
+.color-dot {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.color-btn:hover .color-dot {
+  transform: scale(1.15);
+}
+
+.color-label {
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-in-out);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .product-viewer {
+    padding: 60px 0 80px;
+  }
+
+  .canvas-wrapper {
+    height: 380px;
+    margin-bottom: 32px;
+  }
+
+  .color-picker {
+    gap: 10px;
+  }
+
+  .color-btn {
+    padding: 8px 16px;
+    font-size: var(--font-size-md);
+  }
+
+  .color-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .phone-label {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .canvas-wrapper {
+    height: 280px;
+  }
+
+  .color-picker {
+    gap: 8px;
+  }
+
+  .color-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .phone-label {
+    transition: none;
+  }
+
+  .color-btn {
+    transition: none;
+  }
+}

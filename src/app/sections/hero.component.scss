@@ -1,0 +1,196 @@
+/* ================================================================
+   HERO SECTION — iPhone 17 Pro
+   Matches Apple's layout: trade-in banner in-flow, centered heading,
+   image below. Scroll-driven parallax fade-out.
+   ================================================================ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font-family-sans);
+  padding-top: 24px;
+}
+
+/* ── Trade-in banner — in flow, not sticky ── */
+.tradein-banner {
+  width: 100%;
+  text-align: center;
+  padding: var(--space-3) var(--space-6);
+  font-size: 17px;
+  line-height: 1.47;
+  color: rgba(245, 245, 247, 0.85);
+  flex-shrink: 0;
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* ── Hero inner — centers content vertically ── */
+.hero-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+/* ── Hero content (text layer) ── */
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-6);
+  will-change: transform, opacity;
+}
+
+.hero-heading {
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: clamp(18px, 2.4vw, 28px);
+  font-weight: var(--font-weight-regular);
+  margin: var(--space-2) 0 var(--space-5);
+  color: var(--color-text-secondary);
+}
+
+/* ── Buy button with pulse glow ── */
+.buy-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  z-index: 1;
+  transition: transform 0.15s ease, background 0.15s ease;
+
+  &__glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    z-index: -1;
+    background: var(--color-accent);
+    opacity: 0.4;
+    filter: blur(16px);
+    animation: buyBtnGlow 2.4s ease-in-out infinite;
+  }
+
+  &:hover {
+    background: var(--color-accent-hover);
+    transform: scale(1.04);
+
+    .buy-btn__glow {
+      opacity: 0.65;
+      animation-duration: 1.2s;
+    }
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+}
+
+@keyframes buyBtnGlow {
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50% { transform: scale(1.2); opacity: 0.55; }
+}
+
+/* ── Hero image area ── */
+.hero-image {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 0;
+  will-change: transform, opacity;
+
+  img {
+    width: 100%;
+    max-height: 58vh;
+    object-fit: contain;
+    object-position: bottom center;
+    display: block;
+    will-change: transform, opacity;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .tradein-banner {
+    font-size: 14px;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .hero-heading {
+    font-size: clamp(32px, 10vw, 56px);
+  }
+
+  .subtitle {
+    font-size: clamp(16px, 3vw, 21px);
+    margin: var(--space-1) 0 var(--space-4);
+  }
+
+  .buy-btn {
+    padding: 10px 22px;
+    font-size: 15px;
+  }
+
+  .hero-image img {
+    max-height: 48vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 16px;
+  }
+
+  .hero-heading {
+    font-size: clamp(28px, 12vw, 44px);
+  }
+
+  .hero-image img {
+    max-height: 40vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buy-btn__glow { animation: none; }
+  .hero-image, .hero-image img { transform: none !important; }
+}

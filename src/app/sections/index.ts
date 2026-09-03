@@ -1,0 +1,13 @@
+export { HeroComponent } from './hero.component';
+export { HighlightsComponent } from './highlights.component';
+export { DesignComponent } from './design.component';
+export { ProductViewerComponent } from './product-viewer.component';
+export { CamerasComponent } from './cameras.component';
+export { PerformanceComponent } from './performance.component';
+export { BatteryComponent } from './battery.component';
+export { IosFeaturesComponent } from './ios-features.component';
+export { CompareComponent } from './compare.component';
+export { AccessoriesComponent } from './accessories.component';
+export { ProVideoComponent } from './pro-video.component';
+export { ConnectivityComponent } from './connectivity.component';
+export { TradeInComponent } from './trade-in.component';
